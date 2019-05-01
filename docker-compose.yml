@@ -1,0 +1,31 @@
+version: '2'
+services:
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_USER=airflow
+      - POSTGRES_PASSWORD=airflow
+      - POSTGRES_DB=airflow
+    ports:
+      - 5432:5432
+    volumes:
+      - ./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+      - ./data:/data
+
+  webserver:
+    image: puckel/docker-airflow
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      - LOAD_EX=n
+      - EXECUTOR=Local
+      - AIRFLOW_CONN_STAGE_POSTGRES=postgres://airflow:airflow@localhost:5432/airflow
+    volumes:
+      - ./dags:/usr/local/airflow/dags
+      - ./sql:/usr/local/airflow/sql
+      - ./plugins:/usr/local/airflow/plugins
+      - ./data:/data
+    ports:
+      - 8080:8080
+    command: webserver
