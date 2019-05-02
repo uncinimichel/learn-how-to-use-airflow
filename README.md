@@ -135,7 +135,44 @@ some helpers function that airflow pass to the dags
 - `plugins/operators`
 Custom operators that you can define. I create `data_to_postgres.py` which download the data from a s3 bucket and pass it to postgres.
 - `data`
-Contains some data. It is not used because the data is coming from a s3 bucket but feel free to use it instead!!!  
+Contains some data. It is not used because the data is coming from a s3 bucket but feel free to use it instead!!!
+
+### Getting Started
+
+To get started with this Lab demonstration follow the steps outlined below:
+
+1. Clone the repository
+
+- `git clone https://github.com/uncinimichel/learn-how-to-use-airflow.git`
+
+2. Modify the docker-componse.yml file. Remove the last line under services > webserver > environment:
+
+- `AIRFLOW_CONN_STAGE_POSTGRES=postgres://airflow:airflow@localhost:5432/airflow`
+
+3. Start the docker instance:
+
+- `docker-compose up`
+
+4. Navigate to:
+
+- `http://localhost:8080`
+
+5. From the navigation bar at the top of the web interface, select `admin` then `connections`
+
+6. From the tabs under connections select `Create`
+
+7. Using the information below populate the create connection form:
+
+   - Conn Id: `stage_postgres`
+   - Conn Type: `Postgres`
+   - Host: `postgres`
+   - Schema: `airflow`
+   - Login: `airflow`
+   - Password: `airflow`
+   - Port: `5432`
+   - Extra: leave this blank
+
+8. Click save  
 
 ### TODO
 

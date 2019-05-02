@@ -20,7 +20,6 @@ services:
     environment:
       - LOAD_EX=n
       - EXECUTOR=Local
-      - AIRFLOW_CONN_STAGE_POSTGRES=postgres://airflow:airflow@localhost:5432/airflow
     volumes:
       - ./dags:/usr/local/airflow/dags
       - ./sql:/usr/local/airflow/sql
